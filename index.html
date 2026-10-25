@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tokyo - A City of Contrasts</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS RESET & GENERAL STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #333333;
+      background-color: #faf9f6;
+      line-height: 1.6;
+    }
+
+    /* KONTAINER UTAMA (Memastikan batas kiri-kanan sama rata di semua bagian) */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      padding: 80px 0;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #c85a32;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 15px;
+    }
+
+    .sub-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #777777;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* KUSTOM GARIS ORANYE */
+    .line-orange {
+      width: 70px;
+      height: 3px;
+      background-color: #c85a32;
+      margin-bottom: 30px;
+    }
+
+    /* 1. NAVIGATION BAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .topbar .page {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 1.5px;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #555555;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #c85a32;
+    }
+
+    /* 2. HERO SECTION (DIATUR AGAR KONTENNYA LURUS DENGAN .page) */
+    .hero {
+      position: relative;
+      height: 85vh;
+      min-height: 500px;
+      background-image: url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Membuat kontainer di dalam hero menggunakan lebar penuh lalu dibatasi .page */
+    .hero .page {
+      width: 100%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      color: #ffffff;
+      margin-left: 0; /* Pastikan tidak ada geseran margin */
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: #dddddd;
+      max-width: 450px;
+    }
+
+    /* 4. IMAGE AND TEXT LAYOUT (FLOAT PATTERNS) */
+    .float-right {
+      float: right;
+      margin-left: 40px;
+      margin-bottom: 20px;
+    }
+
+    .float-left {
+      float: left;
+      margin-right: 40px;
+      margin-bottom: 20px;
+    }
+
+    .content-img {
+      width: 480px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .text-block p {
+      margin-bottom: 20px;
+      color: #555555;
+      font-size: 0.95rem;
+    }
+
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #777777;
+      margin-top: 25px;
+    }
+
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    /* 5. PHOTO GALLERY — OVERLAY FADE */
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 30px;
+    }
+
+    .gallery-subtitle {
+      font-size: 0.8rem;
+      color: #777777;
+      max-width: 250px;
+      text-align: right;
+    }
+
+    .gallery-grid {
+      display: flex;
+      gap: 20px;
+    }
+
+    .photo {
+      position: relative;
+      flex: 1;
+      height: 380px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(45, 20, 20, 0.85);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    .photo:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .overlay-caption {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #dddddd;
+    }
+
+    .gallery-note {
+      font-size: 0.75rem;
+      color: #888888;
+      margin-top: 15px;
+    }
+
+    /* 6. FOOTER */
+    footer {
+      background-color: #1a1a1a;
+      color: #ffffff;
+      padding: 40px 0;
+    }
+
+    footer .page {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: #aaaaaa;
+    }
+
+    .back-to-top {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.80rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      color: #c85a32;
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- 1. NAVIGATION BAR -->
+  <header class="topbar">
+    <div class="page">
+      <a class="brand" href="#top">TOKYO.</a>
+      <ul class="nav">
+        <li><a href="#discover">Discover</a></li>
+        <li><a href="#neighborhoods">Neighborhoods</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="page">
+      <div class="hero-content">
+        <p class="hero-tag">A Visual Journey Through Japan</p>
+        <h1 class="hero-title">A City of<br>Contrasts.</h1>
+        <div class="line-orange"></div>
+        <p class="hero-description">
+          Quiet temples, electric streets, and little moments in between. Discover a different side of Tokyo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. DISCOVER SECTION -->
+  <section id="discover" class="section">
+    <div class="page clearfix">
+      <p class="section-tag">01 / Discover</p>
+      <h2 class="section-title">Where tradition meets tomorrow.</h2>
+      <div class="line-orange"></div>
+      
+      <img 
+        src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80" 
+        alt="Tokyo Neon Street" 
+        class="content-img float-right"
+      >
+      
+      <div class="text-block">
+        <p class="sub-tag">More than a destination</p>
+        <p>
+          Tokyo is a city that never stops surprising you. One moment, you are surrounded by bright signs and busy crossings. A few streets away, you might discover a quiet shrine hidden between modern buildings.
+        </p>
+        <p>
+          What makes Tokyo special is the way old and new exist side by side. Every neighborhood has its own rhythm, atmosphere, and story to tell.
+        </p>
+        <p class="quote">"The best way to explore Tokyo is to get a little lost."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. NEIGHBORHOODS SECTION -->
+  <section id="neighborhoods" class="section">
+    <div class="page clearfix">
+      <p class="section-tag">02 / Neighborhoods</p>
+      <h2 class="section-title">Slow down. Look closer.</h2>
+      <div class="line-orange"></div>
+      
+      <img 
+        src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80" 
+        alt="Traditional Tokyo Street" 
+        class="content-img float-left"
+      >
+      
+      <div class="text-block">
+        <p class="sub-tag">The quieter side</p>
+        <p>
+          Beyond the crowded stations and famous landmarks, Tokyo is full of peaceful corners. Small cafés, traditional shops, and narrow streets invite visitors to take their time.
+        </p>
+        <p>
+          Spend an afternoon walking without a strict plan. Notice the details: wooden doors, warm lanterns, tiny gardens, and the everyday life happening all around you.
+        </p>
+        <p>
+          Sometimes the most memorable places are the ones you never planned to visit.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PHOTO GALLERY — OVERLAY FADE -->
+  <section id="gallery" class="section">
+    <div class="page">
+      <div class="gallery-header">
+        <div>
+          <p class="section-tag">03 / Photo Journal</p>
+          <h2 class="section-title" style="margin-bottom: 0;">Tokyo in three frames.</h2>
+        </div>
+        <p class="gallery-subtitle">Move your mouse over each photograph to reveal the story behind the image.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=600&q=80" alt="City Lights">
+          <div class="overlay">
+            <h3 class="overlay-title">City Lights</h3>
+            <p class="overlay-caption">Tokyo After Dark</p>
+          </div>
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80" alt="Old Tokyo">
+          <div class="overlay">
+            <h3 class="overlay-title">Old Tokyo</h3>
+            <p class="overlay-caption">Timeless Traditions</p>
+          </div>
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80" alt="Street Stories">
+          <div class="overlay">
+            <h3 class="overlay-title">Street Stories</h3>
+            <p class="overlay-caption">Everyday Discoveries</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="gallery-note">Hover over a photo to see the fade-in overlay effect.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="page">
+      <p>&copy; Tokyo Travel Journal. Crafted with HTML &amp; CSS.</p>
+      <a href="#top" class="back-to-top">Back to top &uparrow;</a>
+    </div>
+  </footer>
+
+</body>
+</html>
